@@ -31,27 +31,22 @@ namespace std {
 
 // CHECKME: when is this used
 %typemap(typecheck, precedence=SWIG_TYPECHECK_POINTER) std::optional< TYPE >, std::optional< TYPE > const & (std::optional< TYPE > tmp_ov) %{
-  // %typemap(typecheck) std::optional<TYPE>
   if ($input == Py_None)
     $1 = true;
   else {
     $typemap(typecheck, TYPE)
   }
-  // %typemap(typecheck) std::optional<TYPE>
 %}
 
 %typemap(in,implicitconv=1) std::optional< TYPE > const, std::optional< TYPE > %{
-  // %typemap(in) std::optional<TYPE> value
   if ($input == Py_None) {
     $1 = std::nullopt;
   } else {
     $typemap(in, TYPE)
   }
-  // %typemap(in) std::optional<TYPE> value
 %}
 
 %typemap(in,implicitconv=1) std::optional< TYPE > const & (std::optional< TYPE > val), std::optional< TYPE > & (std::optional< TYPE > val) %{
-  // %typemap(in) std::optional<TYPE> reference
   $1 = &val;
   if ($input == Py_None) {
     val = std::nullopt;
@@ -61,11 +56,9 @@ namespace std {
     $typemap(in, TYPE)
     val.emplace($1);
   }
-  // %typemap(in) std::optional<TYPE> reference
 %}
 
 %typemap(in,implicitconv=1) std::optional< TYPE > const * (std::optional< TYPE > val), std::optional< TYPE > * (std::optional< TYPE > val) %{
-  // %typemap(in) std::optional<TYPE> pointer
   $1 = &val;
   if ($input == Py_None) {
     val = std::nullopt;
@@ -75,11 +68,9 @@ namespace std {
     $typemap(in, TYPE)
     val.emplace($1);
   }
-  // %typemap(in) std::optional<TYPE> pointer
 %}
 
 %typemap(directorin,implicitconv=1) std::optional< TYPE > const, std::optional< TYPE > %{
-  // %typemap(directorin) std::optional<TYPE> value
   if ( ($1).has_value() ) {
     auto& tmp_ov = $1;
     {
@@ -90,11 +81,9 @@ namespace std {
     $input = Py_None;
     Py_INCREF(Py_None);
   }
-  // %typemap(directorin) std::optional<TYPE> value
 %}
 
 %typemap(directorin,implicitconv=1) std::optional< TYPE > const & (std::optional< TYPE > val), std::optional< TYPE > & (std::optional< TYPE > val) %{
-  // %typemap(directorin) std::optional<TYPE> reference
   if ( ($1).has_value() ) {
     auto& tmp_ov = $1;
     {
@@ -105,13 +94,11 @@ namespace std {
     $input = Py_None;
     Py_INCREF(Py_None);
   }
-  // %typemap(directorin) std::optional<TYPE> reference
 %}
 
 %typemap(out) std::optional< TYPE > const, std::optional< TYPE > %{
-  // %typemap(out) std::optional<TYPE> value
   if ( $1.has_value() ) {
-    std::optional< TYPE >& tmp_ov = $1;
+    auto& tmp_ov = static_cast<std::optional< TYPE >&>($1); // shadow assignment
     {
       TYPE result = tmp_ov.value();
       $typemap(out, TYPE)
@@ -120,15 +107,13 @@ namespace std {
     $result = Py_None;
     Py_INCREF(Py_None);
   }
-  // %typemap(out) std::optional<TYPE> value
 %}
 
 
 %typemap(out) std::optional< TYPE > const &, std::optional< TYPE > & %{
-  // %typemap(out) std::optional<TYPE> reference
   if ( ($1)->has_value() )
   {
-    std::optional< TYPE >& tmp_ov = *$1; // shadow assignment
+    auto& tmp_ov = static_cast<std::optional< TYPE >&>(*$1); // shadow assignment
     {
       TYPE result = tmp_ov.value();
       $typemap(out, TYPE)
@@ -139,14 +124,12 @@ namespace std {
     $result = Py_None;
     Py_INCREF(Py_None);
   }
-  // %typemap(out) std::optional<TYPE> reference
 %}
 
 %typemap(out) std::optional< TYPE > const *, std::optional< TYPE > * %{
-  // %typemap(out) std::optional<TYPE> pointer
   if ( ($1)->has_value() )
   {
-    std::optional< TYPE >& tmp_ov = *$1; // shadow assignment
+    auto& tmp_ov = static_cast<std::optional< TYPE >&>(*$1); // shadow assignment
     {
       TYPE result = tmp_ov.value();
       $typemap(out, TYPE)
@@ -157,7 +140,6 @@ namespace std {
     $result = Py_None;
     Py_INCREF(Py_None);
   }
-  // %typemap(out) std::optional<TYPE> pointer
 %}
 
 %enddef
