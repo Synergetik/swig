@@ -98,9 +98,9 @@ namespace std {
 
 %typemap(out) std::optional< TYPE > const, std::optional< TYPE > %{
   if ( $1.has_value() ) {
-    auto& tmp_ov = static_cast<std::optional< TYPE >&>($1); // shadow assignment
+    auto const& tmp_ov = *($1).operator&(); // shadow assignment
     {
-      TYPE result = tmp_ov.value();
+      TYPE const& result = tmp_ov.value();
       $typemap(out, TYPE)
     }
   } else {
@@ -113,9 +113,9 @@ namespace std {
 %typemap(out) std::optional< TYPE > const &, std::optional< TYPE > & %{
   if ( ($1)->has_value() )
   {
-    auto& tmp_ov = static_cast<std::optional< TYPE >&>(*$1); // shadow assignment
+    auto const& tmp_ov = *$1; // shadow assignment
     {
-      TYPE result = tmp_ov.value();
+      TYPE const& result = tmp_ov.value();
       $typemap(out, TYPE)
     }
   }
@@ -129,9 +129,9 @@ namespace std {
 %typemap(out) std::optional< TYPE > const *, std::optional< TYPE > * %{
   if ( ($1)->has_value() )
   {
-    auto& tmp_ov = static_cast<std::optional< TYPE >&>(*$1); // shadow assignment
+    auto const& tmp_ov = *$1; // shadow assignment
     {
-      TYPE result = tmp_ov.value();
+      TYPE const& result = tmp_ov.value();
       $typemap(out, TYPE)
     }
   }
