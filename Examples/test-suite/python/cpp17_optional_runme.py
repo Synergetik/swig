@@ -246,7 +246,7 @@ assert circle_custom.radius == radius, "Expected radius to be {}, got {}".format
 assert circle_custom.name == name, "Expected name to be '{}', got {}".format(name, circle_custom.name)
 assert (
     circle_custom.toString() == "Circle({}, {}, {})".format(point.toString(), radius, name)
-), "Expected 'Circle({point.toString()}, {}, {})', got {circle_custom.toString()}".format(radius, name)
+), "Expected 'Circle({}, {}, {})', got {}".format(point.toString(), radius, name, circle_custom.toString())
 
 # test circle optional equality
 point1 = Point(10, 10)
@@ -275,7 +275,7 @@ assert circle.radius == radius, "Expected radius to be {}, got {}".format(radius
 assert circle.name == name, "Expected name to be '{}', got '{}'".format(name, circle.name)
 
 assert (
-    circle.toString() == "Circle({}}, {}, {})".format(point.toString(), radius, name)
+    circle.toString() == "Circle({}, {}, {})".format(point.toString(), radius, name)
 ), "Expected 'Circle({}, {}, {})', got {}".format(point.toString(), radius, name, circle.toString())
 
 # test circle optional handling
@@ -289,17 +289,17 @@ circle.center = point
 circle.radius = radius
 circle.name = name
 
-assert circle.center.isEqual(point), f"Expected center to be {point}, got {circle.center}"
-assert circle.radius == radius, f"Expected radius to be {radius}, got {circle.radius}"
-assert circle.name == name, f"Expected name to be '{name}', got '{circle.name}'"
+assert circle.center.isEqual(point), "Expected center to be {}, got {}".format(point, circle.center)
+assert circle.radius == radius, "Expected radius to be {}, got {}".format(radius, circle.radius)
+assert circle.name == name, "Expected name to be '{}', got '{}'".format(name, circle.name)
 
 circle.center = None
 circle.radius = None
 circle.name = None
 
-assert circle.center is None, f"Expected center to be None, got {circle.center}"
-assert circle.radius is None, f"Expected radius to be None, got {circle.radius}"
-assert circle.name is None, f"Expected name to be None, got {circle.name}"
+assert circle.center is None, "Expected center to be None, got {}".format(circle.center)
+assert circle.radius is None, "Expected radius to be None, got {}".format(circle.radius)
+assert circle.name is None, "Expected name to be None, got {}".format(circle.name)
 
 # test custom optional initialization
 point = Point(1, 2)  # Assuming Point takes (x, y) arguments
@@ -335,7 +335,7 @@ obj.setPointOpt(new_point)
 
 assert obj.getPointOpt().isEqual(
     new_point
-), f"Expected optional point {new_point.toString()}, got {obj.getPointOpt().toString()}"
+), "Expected optional point {}, got {}".format(new_point.toString(), obj.getPointOpt().toString())
 
 obj.setPointOpt(None)
 
@@ -451,7 +451,7 @@ assert result == "None", "Expected 'None' when None is passed as reference."
 rect = Rect(5.0, 3.0)
 result = test_derived_directed.doClassReferenceOptionalChanged(rect)
 assert (
-    result == f"class reference: {rect.toString()}"
+    result == "class reference: {}".format(rect.toString())
 ), "Expected 'class reference: {}' when a valid Rect object is provided.".format(rect.toString())
 
 # CHECKME: add better description - test derived directed doClassReferenceOptionalChanged with none
