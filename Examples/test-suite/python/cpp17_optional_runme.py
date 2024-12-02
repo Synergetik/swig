@@ -245,7 +245,7 @@ assert circle_custom.center.isEqual(point), "Expected center to be {}, got {}".f
 assert circle_custom.radius == radius, "Expected radius to be {}, got {}".format(radius, circle_custom.radius)
 assert circle_custom.name == name, "Expected name to be '{}', got {}".format(name, circle_custom.name)
 assert (
-    circle_custom.toString() == "Circle({point.toString()}, {}, {})".format(radius, name)
+    circle_custom.toString() == "Circle({}, {}, {})".format(point.toString(), radius, name)
 ), "Expected 'Circle({point.toString()}, {}, {})', got {circle_custom.toString()}".format(radius, name)
 
 # test circle optional equality
@@ -275,8 +275,8 @@ assert circle.radius == radius, "Expected radius to be {}, got {}".format(radius
 assert circle.name == name, "Expected name to be '{}', got '{}'".format(name, circle.name)
 
 assert (
-    circle.toString() == "Circle({point.toString()}, {}, {})".format(radius, name)
-), "Expected 'Circle({point.toString()}, {}, {})', got {circle.toString()}".format(radius, name)
+    circle.toString() == "Circle({}}, {}, {})".format(point.toString(), radius, name)
+), "Expected 'Circle({}, {}, {})', got {}".format(point.toString(), radius, name, circle.toString())
 
 # test circle optional handling
 circle = Circle()
