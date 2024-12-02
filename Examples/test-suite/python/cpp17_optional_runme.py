@@ -93,7 +93,7 @@ obj = TestObjectPrimitives(done=True, i=100, f=5.55, d=9.999)
 assert obj.getBool() == True, "Expected True, got {}".format(obj.getBool())
 assert obj.getInt() == 100, "Expected 100, got {}".format(obj.getInt())
 assert obj.getFloat() <= 5.55 + fpTolerance and obj.getFloat() >= 5.55 - fpTolerance, "Expected 5.55, got {}".format(obj.getFloat())
-assert obj.getDouble() <= 9.999 + fpTolerance and obj.getFloat() >= 9.999 - fpTolerance, "Expected 9.999, got {}".format(obj.getDouble())
+assert obj.getDouble() <= 9.999 + fpTolerance and obj.getDouble() >= 9.999 - fpTolerance, "Expected 9.999, got {}".format(obj.getDouble())
 
 # test set and get bool optional
 obj = TestObjectPrimitives(done=False, i=101, f=10.10, d=20.202)
