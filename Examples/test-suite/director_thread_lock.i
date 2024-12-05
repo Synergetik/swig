@@ -1,5 +1,6 @@
 %module(directors="1",threads="1") director_thread_lock
 #if defined(SWIGPYTHON)
+%feature("nothreadallow");
 
 %{
 #ifdef _WIN32
