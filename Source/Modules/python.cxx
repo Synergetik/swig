@@ -3130,16 +3130,16 @@ public:
     /* Emit the function call */
     if (director_method) {
       Append(f->code, "try {\n");
-    } else {
-      if (allow_thread) {
-	String *preaction = NewString("");
-	thread_begin_allow(n, preaction);
-	Setattr(n, "wrap:preaction", preaction);
+    }
 
-	String *postaction = NewString("");
-	thread_end_allow(n, postaction);
-	Setattr(n, "wrap:postaction", postaction);
-      }
+    if (allow_thread) {
+      String *preaction = NewString("");
+      thread_begin_allow(n, preaction);
+      Setattr(n, "wrap:preaction", preaction);
+
+      String *postaction = NewString("");
+      thread_end_allow(n, postaction);
+      Setattr(n, "wrap:postaction", postaction);
     }
 
     Setattr(n, "wrap:name", wname);
