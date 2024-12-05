@@ -42,6 +42,8 @@ extern "C" {
 %}
 
 %director Foo;
+%threadallow Foo::invoke_foo;
+%threadallow Foo::invoke_bar;
 
 %inline {
   static void MilliSecondSleep(int milliseconds) {
