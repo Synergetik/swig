@@ -8,8 +8,8 @@ class Derived(Foo):
         Foo.__init__(self)
 
     def do_foo(self):
-        for i in range(100):
-            self.val = self.val - 1
+        self.val = self.val - 1
+        time.sleep(0.1)
 
 
 d = Derived()
