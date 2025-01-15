@@ -1,10 +1,34 @@
 from cpp17_optional import *
 
-test_optionals = TestOptionals()
+# Object instantiation
+# -----------------------------------------------------------------------------
+
+# test instantiation no namespace struct
+nonstruct = NoNamespaceStruct()
+nonstruct.a = 67
+
+assert nonstruct.a == 67, "Expected nonstruct.a to be 67, got {}".format(repr(nonstruct.a))
+
+# test instantiation struct instantiation
+struct = Struct()
+struct.a = 12
+struct.b = 34
+
+substruct = SubStruct()
+substruct.z = 9
+
+struct.sub = substruct
+
+assert struct.a == 12, "Expected struct.a to be 12, got {}".format(repr(struct.a))
+assert struct.b == 34, "Expected struct.b to be 34, got {struct.b}".format(repr(struct.b))
+
+assert struct.sub.z == 9, "Expected struct.sub.zto be 9, got {struct.sub.z}".format(repr(struct.sub.z))
 
 
 # Simple Optional
 # -----------------------------------------------------------------------------
+
+test_optionals = TestOptionals()
 
 # test get simple optional initial
 optU32 = test_optionals.getSimpleOptional()
@@ -81,6 +105,22 @@ test_optionals.setStructOptional(None)
 
 optStruct_after_clear = test_optionals.getStructOptional()
 assert optStruct_after_clear is None, "Expected None after clear, got {}".format(repr(optStruct_after_clear))
+
+# test initial get struct optional copy
+optStruct = test_optionals.getStructOptionalCopy()
+assert optStruct is None or isinstance(optStruct, Struct), "Expected None or Struct, got {}".format(repr(optStruct))
+
+# test set struct optional copy
+struct = Struct()
+struct.a = 56
+struct.b = 78
+
+test_optionals.setStructOptional(struct)
+
+optStruct_after_set = test_optionals.getStructOptionalCopy()
+assert isinstance(optStruct_after_set, Struct), "Expected Struct instance, got {}".format(repr(optStruct_after_set))
+assert optStruct_after_set.a == 56, "Expected struct.a to be 56, got {}".format(optStruct_after_set.a)
+assert optStruct_after_set.b == 78, "Expected struct.b to be 78, got {}".format(optStruct_after_set.b)
 
 
 # Primitive type Optionals
