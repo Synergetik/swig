@@ -477,7 +477,7 @@ class TestObjectDerived(TestObjectDirected):
     def onClassReferenceOptionalChanged(self, reference):
         return "None" if reference is None else "class reference: {}".format(reference.toString())
 
-    def onStringReferenceOptionalChanged(self, reference: Union[None, str]) -> str:
+    def onStringReferenceOptionalChanged(self, reference):
         return "None" if reference is None else "string reference: {}".format(reference)
 
 test_derived_directed = TestObjectDerived()
