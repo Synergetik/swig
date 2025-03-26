@@ -19,6 +19,28 @@
 #nullable enable
 %}
 
+%pragma(csharp) moduleimports=%{
+#if !NETCOREAPP && !NET5_0_OR_GREATER && !NETSTANDARD2_1_OR_GREATER
+namespace System.Runtime.CompilerServices
+{
+    [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Struct |
+                           System.AttributeTargets.Field | System.AttributeTargets.Property |
+                           System.AttributeTargets.Parameter | System.AttributeTargets.ReturnValue)]
+    internal sealed class NullableAttribute : System.Attribute
+    {
+        public NullableAttribute(byte b) { }
+        public NullableAttribute(byte[] b) { }
+    }
+
+    [System.AttributeUsage(System.AttributeTargets.Module)]
+    internal sealed class NullableContextAttribute : System.Attribute
+    {
+        public NullableContextAttribute(byte b) { }
+    }
+}
+#endif
+%}
+
 %inline %{
 class TestObjectDirected
 {
