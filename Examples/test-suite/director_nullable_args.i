@@ -1,4 +1,5 @@
 %module(directors="1") director_nullable_args
+#if defined SWIGCSHARP
 
 #include <typemaps.i>
 #include <std_string.i>
@@ -49,3 +50,5 @@ private:
     int counter { 0 };
 };
 %}
+
+#endif
