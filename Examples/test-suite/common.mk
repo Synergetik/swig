@@ -215,6 +215,7 @@ CPP_TEST_CASES += \
 	director_nested \
 	director_nspace \
 	director_nspace_director_name_collision \
+	director_nullable_args \
 	director_overload \
 	director_overload2 \
 	director_ownership \
