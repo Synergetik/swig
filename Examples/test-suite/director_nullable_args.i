@@ -15,6 +15,9 @@
 
 %feature("director") TestObjectDirected;
 
+%typemap(csimports) TestObjectDirected %{
+#nullable enable
+%}
 
 %inline %{
 class TestObjectDirected
